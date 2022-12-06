@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Basic Html page</h1>
+    
+    <p th:text="${test}">기본텍스트</p>
+    긴 문장을 작성하는 중간에 여기 위치에 변수값을 출력<span th:text="${test}"></span>
+    <br>
+    [[${test}]]
+    
+    <br>
+    <p th:text="${boldtest}"></p>
+    <p th:ustext="${boldtest}"></p>
+    
+    [[${boldtest}]]
+    [(${boldtest})]
+    
+    <div>
+    	<p th:inline="none">[[]]</p>[[${boldtest}]]
+    	<p th:inline="none">[()]</p>[(${boldtest})]
+    </div>
+    
+    <div>
+    	<p th:text="${foodItem1.itemName}"></p>
+    	<p th:text="${foodItem1.content}"></p>
+    	<p th:text="${foodItem1.price}"></p>
+    </div>
+    
+  	<div>
+    	<p th:text="${foodItem2['itemName']}"></p>
+    	<p th:text="${foodItem2.getContent()}"></p>
+    	<p th:text="${foodItem2.price}"></p>
+    </div>
+    
+    <div>
+    	<p th:text="${foods}"></p>
+    	<ul th:each="food : ${foods}">
+    		<li th:text="${food.itemName}"></li>
+    		<li th:text="${food.content}"></li>
+    		<li th:text="${food.price}"></li>
+    	</ul>
+
+		<h3>------------each 부분---------------</h3>
+		<ul th:each="food, foodStat : ${foods}">
+			<li th:text="${food.itemName}" th:if="${foodStat.even}"></li>
+			홀수냐
+			<li th:text="${food.content}" th:if="${foodStat.odd}"></li>
+			홀수가 아니냐
+			<li th:text="${food.content}" th:unless="${foodStat.odd}"></li>
+			<li th:text="${food.price}" th:if="${food.price lt 1500}"></li>
+			<li th:switch="${food.price}">
+				<span th:case="1000">싸다</span>
+				<span th:case="2000">괜찮다</span>
+				<span th:case="3000">비싸다</span>
+				<span th:case="*">기타등등</span>
+			</li>
+			<li><span th:text="${foodStat.index}"></span></li>
+			<li><span th:text="${foodStat.count}"></span></li>
+			<li><span th:text="${foodStat.size}"></span></li>
+			<li><span th:text="${foodStat.even}"></span></li>
+			<li><span th:text="${foodStat.odd}"></span></li>
+			<li><span th:text="${foodStat.first}"></span></li>
+			<li><span th:text="${foodStat.last}"></span></li>
+			<li><span th:text="${foodStat.current}"></span></li>
+		</ul>
+	</div>
+    
+    <div th:with="localVar=${foods[1]}">
+        <ul th:each="food : ${foods}">
+    		<li th:text="${food.itemName}"></li>
+    		<li th:text="${food.content}"></li>
+    		<li th:text="${food.price}"></li>
+    	</ul>
+    </div>	
+    
+    <th:block th:each="food, foodStat: ${foods}">
+ 		<div>
+ 			[[${food.itemName}]]
+ 		</div>   
+ 		<div>
+ 			[[${food.content}]]
+ 		</div>   
+ 		<div>
+ 			[[${food.price}]]
+ 		</div>   
+    </th:block>
+    
+</body>
+</html>

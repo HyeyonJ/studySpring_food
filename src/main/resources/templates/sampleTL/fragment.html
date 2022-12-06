@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:td= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>fragment page</h1>
+    
+    <div>여기는 원래 있던 것</div>
+	
+	<div th:insert="~{sampleTL/source :: first}"></div>
+
+	<div th:insert="~{sampleTL/source :: second}"></div>
+	
+	<div th:replace="~{sampleTL/source :: first}"></div>
+	
+	<div th:replace="~{sampleTL/source :: second}"></div>
+	
+	<div th:replace="~{sampleTL/source :: third('무언가가')}"></div>
+</body>
+</html>

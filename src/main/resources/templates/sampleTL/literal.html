@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>literal</title>
+</head>
+<body>
+
+    <h1>literal</h1>
+   	<ul>
+   		<li><span th:text="text"></span></li>
+   		<li><span th:text="testtext"></span></li>
+   		<li><span th:text="'test text'"></span></li>
+   		<li><span th:text="'test' + 'text'"></span></li>
+   		<li><span th:text="'test' + ${foodItem1.itemName}"></span></li>
+   		<li><span th:text="|test ${foodItem1.itemName} $foodItem2.itemName}|"></span></li>
+   	</ul>
+   	
+   	
+   	<h1>operation</h1>
+   	<ul>
+   		<li><span th:text="1 + 1"></span></li>
+   		<li><span th:text="1 + 1 == 2"></span></li>
+   		<li><span th:text="4 % 2 == 0"></span></li>
+   		<li><span th:text="5 % 2 == 1"></span></li>
+   	</ul>
+   	
+   	<ul>
+   		<li><span th:text="10 > 20"></span></li>
+   		<li><span th:text="20 >= 20"></span></li>
+   		<li><span th:text="10 gt 20">great than</span></li>
+   		<li><span th:text="10 lt 20"></span>less than</li>
+   		>= greater than or equals ge
+   		<= less than or equls 	  le
+   		
+   	</ul>
+   	<ul>
+   		
+   		<li><span th:text="(4%2==0)?'짝수':'홀수'"></span></li>
+   	
+		<li><span th:text="${foodItem1.itemName}?:'없음'"></span></li>
+		<li><span th:text="${nullData}?:'null 없음'"></span></li>   	
+
+		<li><span th:text="${nullData}?:_">없음</span></li>   	
+   	</ul>
+   	
+   	<div class="class1" th:attrappend="class=' class2'">div</div>
+   	속성을 찾아서 문자를 가지고 들어가는 것
+   	<div class="class1" th:attrprepend="class='class3 '">div</div>
+   	<div class="class1" th:classappend="class3">div</div>
+   	속성이 잡아먹는 것????
+   	<div name="abc" th:name="def" class="class1" th:classappend="class3">div</div>
+   	
+   	<input type="checkbox" checked/>
+   	<input type="checkbox" th:checked="true"/>
+   	<input type="checkbox" th:checked="false"/>
+
+</body>
+</html>

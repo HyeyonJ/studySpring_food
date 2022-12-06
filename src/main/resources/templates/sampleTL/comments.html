@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>literal</title>
+</head>
+<body>
+
+    <h1>Comments Html page</h1>
+    
+    <span>text</span>
+<!--     <span>text</span> -->
+
+	<span th:text="${text}">text</span>
+	
+	
+	<!-- /*	 -->
+	<span th:text="${text}">text</span> 
+	<!-- */ -->
+
+	<br>
+	[[${text}]]
+<!-- 	[[${text}]] -->
+<!-- /* 	[[${text}]] */-->
+</body>
+</html>

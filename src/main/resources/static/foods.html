@@ -1,0 +1,43 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+	<div>
+    	<a href="/foods.html">foods페이지</a>
+    </div>
+    <div>
+    	<table>
+    		<thead>
+    		<tr>
+    			<th>FoodId</th>
+    			<th>FoodItemName</th>
+    			<th>FoodContent</th>
+    			<th>FoodPrice</th>
+    		</tr>
+    		</thead>
+			<tr>
+    			<th>1</th>
+    			<th>음식1</th>
+    			<th>재료1</th>
+    			<th>1000</th>
+    		</tr>
+    		<tr>
+    			<th>2</th>
+    			<th>음식2</th>
+    			<th>재료2</th>
+    			<th>2000</th>
+    		</tr>
+    		<tbody>
+    		</tbody>
+    	</table>
+    </div>
+    <div>
+    	<button th:onclick="|location.href='@{/foods/new}'|">신규등록</button>
+    </div>
+</body>
+</html>

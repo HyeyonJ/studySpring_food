@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+    <h1>new FoodItem Page</h1>
+    
+    <form action="" method="post" th:object="${foodItem}">
+    	<div>
+    		<label>ItemName<input type="text" name="itemName" th:field="*{itemName}"></label>
+    		<label>Content<input type="text" name="content" th:field="*{content}"></label>
+    		<label>Price<input type="number" name="price" th:field="*{price}"></label>
+    		<label>Soldout<input type="checkbox" id="soldout" th:field="*{soldout}"></label>
+<!--     		<label>Soldout<input type="checkbox" id="soldout" name="soldout"></label> -->
+<!--     		<label><input type="hidden" name="_soldout" value="on"/></label> -->
+    	</div>
+    	<div>
+    		<button type="submit">추가하기</button>
+    		<button type="button" th:onclick="|location.href='@{/foods}'|">뒤로가기</button>
+    	</div>
+    </form>
+</body>
+</html>

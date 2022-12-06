@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:td= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	request, response, session, locale
+	
+<!-- 	<ul> -->
+<!-- 		<li th:text="${#request}"></li> -->
+<!-- 		<li th:text="${request}"></li> -->
+<!-- 		<li th:text="${#response}"></li> -->
+<!-- 		<li th:text="${#session}"></li> -->
+<!-- 		<li th:text="${locale}"></li> -->
+<!-- 	</ul> -->
+	
+	<ul>
+		<li th:text="${param.param1}"></li>
+		<li th:text="${param.param2}"></li>
+	</ul>
+	
+	<ul>
+		<li><span th:text="${@helloBean.hello('bean hello')}"></span></li>
+		<!-- 		시간 값이 바로 넘어왔을 때 변수만 넘겨주기 -->
+		<li><span th:text="${strDateTime}"></span></li>
+		<li><span th:text="${#temporals.format(dateTime, 'yyyy-MM-dd')}"></span></li>
+		<li><span th:text="${#temporals.year(dateTime)}"></span></li>
+		<li><span th:text="${#temporals.month(dateTime)}"></span></li>
+		<li><span th:text="${#temporals.day(dateTime)}"></span></li>
+		<li><span th:text="${#temporals.hour(dateTime)}"></span></li>
+		<li><span th:text="${#temporals.minute(dateTime)}"></span></li>
+		<li><span th:text="${#temporals.second(dateTime)}"></span></li>
+	
+	</ul>
+    
+</body>
+</html>

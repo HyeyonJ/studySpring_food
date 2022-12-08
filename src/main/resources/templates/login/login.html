@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+</head>
+<body>
+	<div>
+		<h1>Login Page</h1>
+<!-- 												넘겨줄 때의값 -->
+		<form action="" method="post" th:object="${loginForm}">
+			
+			<label for="loginId">ID</label>
+			<input type="text" th:field="*{loginId}" id="loginId">
+			<div th:errors="*{loginId}"></div>
+			
+			<div>
+				<label for="password">PASSWORD</label>
+				<input type="password" th:field="*{password}" id="password">
+				<div th:errors="*{password}"></div>
+			</div>
+			
+			<button type="submit">로그인</button>
+			<button type="button" th:onclick="|location.href='@{/}'|">취소</button>
+			
+		</form>
+		</div>
+	</div>
+</body>
+</html>

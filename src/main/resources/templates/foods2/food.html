@@ -58,8 +58,8 @@
     	</table>
     </div>
     <div style="text-align: center;">
-    	<button th:onclick="|location.href='@{/foods/update/{foodId}(foodId=${food.id})}'|">수정하기</button>
-    	<button th:onclick="|location.href='@{/foods}'|">리스트</button>
+    	<button th:onclick="|location.href='@{/foods2/update/{foodId}(foodId=${food.id})}'|">수정하기</button>
+    	<button th:onclick="|location.href='@{/foods2}'|">리스트</button>
     </div>
     
     <div th:each="option : ${options}"> 

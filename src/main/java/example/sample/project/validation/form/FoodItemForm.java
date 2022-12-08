@@ -1,46 +1,38 @@
-package example.sample.project.domain;
+package example.sample.project.validation.form;
 
 import java.util.List;
 
 import org.hibernate.validator.constraints.Range;
 
+import example.sample.project.domain.FoodType;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-@Data
-public class FoodItem {
+public class FoodItemForm {
+
 	private int id;
 	
 //	@NotBlank(message="필수입력좀..")
-	@NotBlank
+	@NotBlank(groups = UpdateCheck.class)
 	private String itemName;
 	
-	@NotBlank
+	@NotBlank(groups = NewCheck.class)
 	private String content;
 	
-	@Range(min=1, max=10000)
+	@Range(min=1, max=10000, groups = {UpdateCheck.class, NewCheck.class})
 	private int price;
 	
-	public FoodItem() {
-		// TODO Auto-generated constructor stub
-	}
+	public FoodItemForm() {}
 
 	private Boolean soldout;
 	private List<String> options;
 	private FoodType foodType;
 	private String shopCode;
 	
-	public FoodItem(String itemName, String content, int price) {
+	public FoodItemForm(String itemName, String content, int price) {
 		super();
 		this.itemName = itemName;
 		this.content = content;
 		this.price = price;
 	}
-
+	
 }
-
-

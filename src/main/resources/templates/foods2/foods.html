@@ -9,7 +9,7 @@
 <body>
 	<div>
 <!-- 	여기 네브바 -->
-    	<a href="/foods.html">foods페이지</a>
+    	<a href="/foods2.html">foods페이지</a>
     
     </div>
 	<div class="container text-center">
@@ -36,8 +36,8 @@
 		    			<td>재료2</td>
 		    			<td>2000</td>
 		    		</tr>
-		    		<tr th:each="food : ${foods}">
-		    		    <td><a th:href="@{|/foods/${food.id}|}" th:text="${food.id}"></a></td>
+		    		<tr th:each="food : ${foods2}">
+		    		    <td><a th:href="@{|/foods2/${food.id}|}" th:text="${food.id}"></a></td>
 		    			<td th:text="${food.itemName}">음식3</td>
 		    			<td th:text="${food.content}">재료3</td>
 		    			<td th:text="${food.price}">3000</td>
@@ -55,7 +55,7 @@
 
     </div>
     <div>
-    	<button th:onclick="|location.href='@{/foods/new}'|">신규등록</button>
+    	<button th:onclick="|location.href='@{/foods2/new}'|">신규등록</button>
     </div>
       <div th:each="option : ${options}"> 
     	<p th:text="${option.key}"></p>

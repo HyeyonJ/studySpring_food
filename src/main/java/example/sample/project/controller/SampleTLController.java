@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import example.sample.project.domain.FoodItem;
 import lombok.Getter;
@@ -59,10 +60,10 @@ public class SampleTLController {	// Thymeleaf
 	@GetMapping("/object/{param1}")
 	public String updateFoodProcess(Model model
 				, @PathVariable("param1") String param1
-				, @PathVariable("param2") String param2) {
+				, @RequestParam("param2") String param2) {
 		log.info(param1);
 		log.info(param2);
-		return "foods/object";
+		return "sampleTL/object";
 	}
 
 	@Component("helloBean")

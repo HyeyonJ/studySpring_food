@@ -7,22 +7,21 @@
 <body>
     <h1>Basic Html page</h1>
     
-    <p th:text="${test}">기본텍스트</p>
-    긴 문장을 작성하는 중간에 여기 위치에 변수값을 출력<span th:text="${test}"></span>
-    <br>
-    [[${test}]]
+    <h3>변수로 넘기는 문법</h3>
+    	<p th:text="${test}">기본텍스트</p>
+    		긴 문장을 작성하는 중간에 여기 위치에 변수값을 출력 <br>
+    	[[${test}]] <br>
     
-    <br>
-    <p th:text="${boldtest}"></p>
-    <p th:ustext="${boldtest}"></p>
-    
-    [[${boldtest}]]
-    [(${boldtest})]
+    	<p th:text="${boldtest}"></p>
+    	<p th:utext="${boldtest}"></p> <br>
+    	[[${boldtest}]] <br>
+    	[(${boldtest})]
     
     <div>
     	<p th:inline="none">[[]]</p>[[${boldtest}]]
     	<p th:inline="none">[()]</p>[(${boldtest})]
     </div>
+    	<p>---------------------------------------</p>
     
     <div>
     	<p th:text="${foodItem1.itemName}"></p>
@@ -35,6 +34,7 @@
     	<p th:text="${foodItem2.getContent()}"></p>
     	<p th:text="${foodItem2.price}"></p>
     </div>
+    	<p>---------------------------------------</p>
     
     <div>
     	<p th:text="${foods}"></p>

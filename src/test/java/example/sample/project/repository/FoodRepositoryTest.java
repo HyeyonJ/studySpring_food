@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 import example.sample.project.domain.FoodItem;
 
 public class FoodRepositoryTest {
-	FoodRepository foodRepository = FoodRepository.getInstance();
+	FoodRepository foodRepository ;
+//	= FoodRepository.getInstance();
 	
 	@Test
 	void updateTest() {

@@ -42,6 +42,8 @@ import example.sample.project.domain.FoodType;
 import example.sample.project.domain.ShopCode;
 import example.sample.project.repository.FoodRepository;
 import example.sample.project.validation.FoodItemValidator;
+import example.sample.project.validation.form.FoodItemNewForm;
+import example.sample.project.validation.form.NewCheck;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,12 +51,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/foods")
-public class FoodController { 
+@RequestMapping("/foods2")
+public class FoodController2 { 
 //	private final FoodRepository foodRepository = FoodRepository.getInstance();
 	
 	private final FoodRepository foodRepository;
-	private final FoodItemValidator foodItemValidator;
 	
 //	private final FoodItemValidator foodItemValidator;
 //	
@@ -68,20 +69,20 @@ public class FoodController {
 	public String foods(Model model) {
 		List<FoodItem> foodList = foodRepository.selectAll();
 		
-		model.addAttribute("foods", foodList);
+		model.addAttribute("foods2", foodList);
 		
 		for(FoodType ft : FoodType.values()) {
 			log.info(ft.name());
 		}
 		
-		return "foods/foods"; // 페이지 정보 반환
+		return "foods2/foods"; // 페이지 정보 반환
 	}
 	@PostMapping("/food")
 	public String food2(Model model, @RequestParam int foodId) {
 		FoodItem foodItem = foodRepository.selectById(foodId);
 		model.addAttribute("food", foodItem);
 		
-		return "foods/food";
+		return "foods2/food";
 	}
 	
 	
@@ -93,85 +94,118 @@ public class FoodController {
 		
 	
 		
-		return "foods/food";
-	}
-	
-	@InitBinder
-	public void init(WebDataBinder dataBinder) {
-		dataBinder.addValidators(foodItemValidator);
+		return "foods2/food";
 	}
 	
 	@GetMapping("/new")
 	public String newFood(Model model) {
 		model.addAttribute("foodItem", new FoodItem());
-		return "foods/new";
+		return "foods2/new";
 	}
 	
 	@PostMapping("/new")
 	public String newFoodInsertModel(
-			@Validated
-			@ModelAttribute FoodItem foodItem
-//			, Model model
-			, BindingResult bindingResult
-			, RedirectAttributes rAttr) {
+//			@Validated @ModelAttribute("foodItem") FoodItemNewForm foodItemNewForm
+//			@Validated(UpdateCheck.class) @ModelAttribute("foodItem") FoodItemNewForm foodItemNewForm
+			@Validated(NewCheck.class) @ModelAttribute("foodItem") FoodItemNewForm foodItemNewForm
+			,BindingResult bindingResult
+			,RedirectAttributes rAttr) {
 		
-		log.info(foodItem.toString());
+		log.info(foodItemNewForm.toString());
 		
 		log.info(bindingResult.getObjectName());
-		log.info("{}",bindingResult.getTarget());
+		log.info("{}", bindingResult.getTarget());
 		
-		foodItemValidator.validate(foodItem, bindingResult);
+//		foodItemValidator.validate(foodItem, bindingResult);
 		
-//		foodRepository.insert(foodItem);
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required.foodItem.itemName");
-		
-		
-		if(!StringUtils.hasText(foodItem.getItemName())) {
-												//objectName				실패한 값								
-//			bindingResult.addError(new FieldError("foodItem", "itemName", foodItem.getItemName(),false, new String[] {"required.foodItem.itemName"}, null,"아이템 이름은 필수입력"));
-			bindingResult.rejectValue("itemName", "required.foodItem.itemName", "default message()");
-		}
-		
-		if(!StringUtils.hasText(foodItem.getItemName())) {
-												// 객체명 		필드 			메세지
-//			bindingResult.addError(new FieldError("foodItem", "content",foodItem.getContent() ,false, new String[] {"required.foodItem.itemName"}, null, "컨텐츠는 필수입력"));
-			bindingResult.rejectValue("content", "required.foodItem.content", "default message()");
-		}
-		
-		if(foodItem.getPrice() > 10000) {
-//			bindingResult.addError(new FieldError("foodItem", "price", foodItem.getPrice(), false, new String[] {"max.foodItem.price"}, new Object[] {1, 10000}, "너무 비싸다 ~만원까지 상품만취급"));
-			bindingResult.rejectValue("price","max.foodItem.price", new Object[] {1, 10000, foodItem.getPrice()} , "default message()" );
-		}
-		
-	
-		if(foodItem.getSoldout()) {
+		if(foodItemNewForm.getSoldout()) {
 			bindingResult.reject("failureMsg", null);
-			// global메세지 처리
-//			bindingResult.addError(new ObjectError("foodItem", new String[] {"failureMsg"}, null, "DefaultMessage"));
-//			bindingResult.addError(new ObjectError("foodItem", "에러 발생"));
-//			bindingResult.addError(new ObjectError("foodItem", "아차 오타!"));
 		}
 		
 		if(bindingResult.hasErrors()) {
-			log.info("binginResult={}", bindingResult);
-			return "foods/new";
+			log.info("bindingResult={}", bindingResult);
+			return "foods2/new";
 		}
 		
-//		if(!errors.isEmpty()) {
-//			model.addAttribute("errors", errors);	// 담고
-//			return "foods/new";
-//		}
-			
-		foodRepository.insert(foodItem);
+		FoodItem insFoodItem = new FoodItem();
+		insFoodItem.setId(foodItemNewForm.getId());
+		insFoodItem.setItemName(foodItemNewForm.getItemName());
+		insFoodItem.setContent(foodItemNewForm.getContent());
+		insFoodItem.setPrice(foodItemNewForm.getPrice());
 		
-		rAttr.addAttribute("foodId", foodItem.getId());
+		foodRepository.insert(insFoodItem);
+		
+		rAttr.addAttribute("foodId", foodItemNewForm.getId());
 		rAttr.addAttribute("test", "ok");
+		return "redirect:/foods2/{foodId}";
 		
-//		return "foods/food";
-//		return "redirect:/foods/" + foodItem.getId();
-		return "redirect:/foods/{foodId}";
 	}
+	
+//	@PostMapping("/new")
+//	public String newFoodInsertModel(
+//			@Validated
+//			@ModelAttribute("foodItem") FoodItemNewForm foodItemNewForm
+////			@ModelAttribute FoodItem foodItem
+////			, Model model
+//			, BindingResult bindingResult
+//			, RedirectAttributes rAttr) {
+//		
+//		log.info(foodItemNewForm.toString());
+//		
+//		log.info(bindingResult.getObjectName());
+//		log.info("{}",bindingResult.getTarget());
+//		
+//		
+////		foodRepository.insert(foodItem);
+//		
+//		ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required.foodItem.itemName");
+//		
+//		
+//		if(!StringUtils.hasText(foodItemNewForm.getItemName())) {
+//												//objectName				실패한 값								
+////			bindingResult.addError(new FieldError("foodItem", "itemName", foodItem.getItemName(),false, new String[] {"required.foodItem.itemName"}, null,"아이템 이름은 필수입력"));
+//			bindingResult.rejectValue("itemName", "required.foodItem.itemName", "default message()");
+//		}
+//		
+//		if(!StringUtils.hasText(foodItemNewForm.getItemName())) {
+//												// 객체명 		필드 			메세지
+////			bindingResult.addError(new FieldError("foodItem", "content",foodItem.getContent() ,false, new String[] {"required.foodItem.itemName"}, null, "컨텐츠는 필수입력"));
+//			bindingResult.rejectValue("content", "required.foodItem.content", "default message()");
+//		}
+//		
+//		if(foodItem.getPrice() > 10000) {
+////			bindingResult.addError(new FieldError("foodItem", "price", foodItem.getPrice(), false, new String[] {"max.foodItem.price"}, new Object[] {1, 10000}, "너무 비싸다 ~만원까지 상품만취급"));
+//			bindingResult.rejectValue("price","max.foodItem.price", new Object[] {1, 10000, foodItem.getPrice()} , "default message()" );
+//		}
+//		
+//	
+//		if(foodItem.getSoldout()) {
+//			bindingResult.reject("failureMsg", null);
+//			// global메세지 처리
+////			bindingResult.addError(new ObjectError("foodItem", new String[] {"failureMsg"}, null, "DefaultMessage"));
+////			bindingResult.addError(new ObjectError("foodItem", "에러 발생"));
+////			bindingResult.addError(new ObjectError("foodItem", "아차 오타!"));
+//		}
+//		
+//		if(bindingResult.hasErrors()) {
+//			log.info("binginResult={}", bindingResult);
+//			return "foods2/new";
+//		}
+//		
+////		if(!errors.isEmpty()) {
+////			model.addAttribute("errors", errors);	// 담고
+////			return "foods2/new";
+////		}
+//			
+//		foodRepository.insert(foodItem);
+//		
+//		rAttr.addAttribute("foodId", foodItem.getId());
+//		rAttr.addAttribute("test", "ok");
+//		
+////		return "foods2/food";
+////		return "redirect:/foods/" + foodItem.getId();
+//		return "redirect:/foods2/{foodId}";
+//	}
 	
 	// 더 간단하게 만들 예정~
 	@PostMapping("/new_old3")
@@ -208,7 +242,7 @@ public class FoodController {
 		
 		if(bindingResult.hasErrors()) {
 			log.info("binginResult={}", bindingResult);
-			return "foods/new";
+			return "foods2/new";
 		}
 		
 //		if(!errors.isEmpty()) {
@@ -223,7 +257,7 @@ public class FoodController {
 		
 //		return "foods/food";
 //		return "redirect:/foods/" + foodItem.getId();
-		return "redirect:/foods/{foodId}";
+		return "redirect:/foods2/{foodId}";
 	}
 	
 	// 더 간단하게 만들 예정~
@@ -263,7 +297,7 @@ public class FoodController {
 //		}
 		
 		if(!StringUtils.hasText(foodItem.getItemName())) {
-			bindingResult.addError(new FieldError("foodItem", "itemName", "아이템 이름은 필수입력"));
+			bindingResult.addError(new FieldError("foodItem", "itemName", "아이템 이름은       입력"));
 		}
 		
 		if(!StringUtils.hasText(foodItem.getItemName())) {
@@ -284,7 +318,7 @@ public class FoodController {
 		
 		if(bindingResult.hasErrors()) {
 			log.info("binginResult={}", bindingResult);
-			return "foods/new";
+			return "foods2/new";
 		}
 		
 //		if(!errors.isEmpty()) {
@@ -299,7 +333,7 @@ public class FoodController {
 		
 //		return "foods/food";
 //		return "redirect:/foods/" + foodItem.getId();
-		return "redirect:/foods/{foodId}";
+		return "redirect:/foods2/{foodId}";
 	}
 	
 	// 더 간단하게 만들 예정~
@@ -356,7 +390,7 @@ public class FoodController {
 		
 		if(!errors.isEmpty()) {
 			model.addAttribute("errors", errors);	// 담고
-			return "foods/new";
+			return "foods2/new";
 		}
 			
 		foodRepository.insert(foodItem);
@@ -366,7 +400,7 @@ public class FoodController {
 		
 //		return "foods/food";
 //		return "redirect:/foods/" + foodItem.getId();
-		return "redirect:/foods/{foodId}";
+		return "redirect:/foods2/{foodId}";
 	}
 	
 //	// 데이터가 담겨서 들어 올 것이다. 화면에 그려주는 애들을 전달을 해줘야해서 모델을 받아줘야함.
@@ -390,7 +424,7 @@ public class FoodController {
 		FoodItem foodItem = foodRepository.selectById(foodId);
 		model.addAttribute("food",foodItem);
 		
-		return "foods/update.html";
+		return "foods2/update.html";
 	}
 	
 	@PostMapping("/update/{foodId}")
@@ -407,7 +441,7 @@ public class FoodController {
 //		return "foods/update.html";
 		// 2번.
 		// food 상세정보를 보여주는 경로가 이미 존재. -> 이미 존재하는 메소드를 활용
-		return "redirect:/foods/{foodId}";
+		return "redirect:/foods2/{foodId}";
 	}
 	
 	

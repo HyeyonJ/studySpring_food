@@ -13,22 +13,24 @@
     <h1>new FoodItem Page</h1>
     
     <form action="" method="post" th:object="${foodItem}">
-  		<div th:if="${#fields.hasGlobalErrors()}">
-   			<div th:each="error : ${#fields.globalErrors()}"
-   					th:text="${error}"></div>
+  		<div th:if="${errors?.containsKey('globarError')}">
+   			<div class="errormsg" th:text="${errors['globarError']}"></div>
    		</div>
-    	
     	<div>
     		<label>▶ ItemName<input type="text" name="originalItemName" th:field="*{itemName}"></label>
-	    			<div class="errormsg" th:errors="*{itemName}"></div>
+	    		<div th:if="${errors?.containsKey('itemName')}">
+	    			<div class="errormsg" th:text="${errors['itemName']}"></div>
+	    		</div>
 	    	<br>
-    		
     		<label>▶ Content<input type="text" name="content" th:field="*{content}"></label>
-					<div class="errormsg" th:errors="*{content}"></div>
+	    		<div th:if="${errors?.containsKey('content')}">
+	    			<div class="errormsg" th:text="${errors['content']}"></div>
+	    		</div>
 	    	<br>
-    		<label>▶ Price <input type="number" name="price" th:field="*{price}" ></label>
-    			<div class="errormsg" th:errors="*{price}"></div>
-
+    		<label>▶ Price<input type="number" name="price" th:field="*{price}" th:class="${errors?.containsKey('price')}? 'errormsg' : _"></label>
+    			<div th:if="${errors?.containsKey('price')}">
+    				<div class="errormsg" th:text="${errors['price']}"></div>
+    			</div>
     		<br>
     		<label>▶ Soldout<input type="checkbox" id="soldout" th:field="*{soldout}"></label>
     	</div>
@@ -49,7 +51,7 @@
     	</div>
     	<div>
     		<button type="submit">추가하기</button>
-    		<button type="button" th:onclick="|location.href='@{/foods}'|">뒤로가기</button>
+    		<button type="button" th:onclick="|location.href='@{/foods2}'|">뒤로가기</button>
     	</div>
     </form>
     <div th:each="option : ${options}"> 

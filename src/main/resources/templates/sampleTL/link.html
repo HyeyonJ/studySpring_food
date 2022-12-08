@@ -10,8 +10,8 @@
    	<ul>
    		<li><a th:href="@{/object}">Object로</a> ></li>
    		<li><a th:href="@{/object(param1=${param1}, param2=${param2})}">Param확인</a> ></li>
-   		<li><a th:href="@{/object/{param1}/{param2}(param1=${param1}, param2=${param2})}">이건뭐지</a></li>
-   		<li><a th:href="@{/object/{param1}(param1=${param1}, param2=${param2})}">이건모지</a></li>
+   		<li><a th:href="@{/object/{param1}/{param2}(param1=${param1}, param2=${param2})}">PathVariable</a></li>
+   		<li><a th:href="@{/object/{param1}(param1=${param1}, param2=${param2})}">RequestParam</a></li>
    	</ul>
    	
    	
@@ -20,27 +20,27 @@
 <!-- 			/objecft (Post -> Body) @RequestParam -->
 <!--    	/object/{param}/{value} @PathVariable -->
 
-   	<ul>
-   		<li>/products<a th:href="@{/products}"></a>
+<!--    	<ul> -->
+<!--    		<li>/products<a th:href="@{/products}"></a> -->
    		
-   		pathvalue 경로로 잡히는 친구 
-   		<li>/product/30?option=soldout
-   		<a th:href="@{/product/{productId}({productId=${product.id}, option=${option})}"></a>
+<!--    		pathvalue 경로로 잡히는 친구  -->
+<!--    		<li>/product/30?option=soldout -->
+<!--    		<a th:href="@{/product/{productId}({productId=${product.id}, option=${option})}"></a> -->
    		
-   		<li>/product/30 <-product.id
-   		<a th:href="@{/product/{productId}(productId=${product.id})}">products.id</a>
+<!--    		<li>/product/30 <-product.id -->
+<!--    		<a th:href="@{/product/{productId}(productId=${product.id})}">products.id</a> -->
    		
-   		<li>/category/992
-   		<li><a th:href="@{/category/{categoryNumber}(categoryNumber=${category.Number})}"></a>
+<!--    		<li>/category/992 -->
+<!--    		<li><a th:href="@{/category/{categoryNumber}(categoryNumber=${category.Number})}"></a> -->
 
-   		<li>/category/992/product/60
-   		<li><a th:href="@{/category/{categoryNumber}/product/{productId}
-   							(categoryNumber=${category.Number}, productId=${product.id})}"></a>
+<!--    		<li>/category/992/product/60 -->
+<!--    		<li><a th:href="@{/category/{categoryNumber}/product/{productId} -->
+<!-- <!--    							(categoryNumber=${category.Number}, productId=${product.id})}"></a> --> -->
    		
-   		<li>/category/992/product/60?level=5
-   		<li><a th:href="@{/category/{categoryNumber}/product/{productId}
-   						(categoryNumber=${category.Number}, productId=${product.id}, level=${levelt})}"></a>
-   	</ul>
+<!--    		<li>/category/992/product/60?level=5 -->
+<!--    		<li><a th:href="@{/category/{categoryNumber}/product/{productId} -->
+<!-- <!--    						(categoryNumber=${category.Number}, productId=${product.id}, level=${levelt})}"></a> --> -->
+<!--    	</ul> -->
     
 </body>
 </html>

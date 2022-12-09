@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -39,10 +38,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import example.sample.project.domain.FoodItem;
 import example.sample.project.domain.FoodType;
+import example.sample.project.domain.Member;
 import example.sample.project.domain.ShopCode;
 import example.sample.project.repository.FoodRepository;
+import example.sample.project.session.SessionVar;
 import example.sample.project.validation.FoodItemValidator;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,6 +59,7 @@ public class FoodController {
 	private final FoodRepository foodRepository;
 	private final FoodItemValidator foodItemValidator;
 	
+	
 //	private final FoodItemValidator foodItemValidator;
 //	
 //	@Autowired
@@ -65,7 +69,25 @@ public class FoodController {
 	
 	@GetMapping
 	// 전체 정보를 넘기는 것
-	public String foods(Model model) {
+	public String foods(Model model, HttpServletRequest req) {
+		// 로그인 했는지? 했으면 진행
+		// 안했으면 "/ " redirect
+		
+		// 없으면 만들어버리기 때문에 false를 걸어둬야 세션이 있는지 없는지 체크가 가능함
+		HttpSession session = req.getSession(false);
+//		if(session == null) {
+//			return "redirect:/";
+//		}
+//		Member member = (Member)session.getAttribute(SessionVar.LOGIN_MEMBER);
+//		if(member == null) {
+//			return "redirect:/";
+//		}
+		// 더 간단하게 
+		if(session == null || session.getAttribute(SessionVar.LOGIN_MEMBER) == null) {
+			return "redirect:/";
+		}
+		
+		// 데이터 읽어서 화면 전달
 		List<FoodItem> foodList = foodRepository.selectAll();
 		
 		model.addAttribute("foods", foodList);
@@ -76,6 +98,7 @@ public class FoodController {
 		
 		return "foods/foods"; // 페이지 정보 반환
 	}
+	
 	@PostMapping("/food")
 	public String food2(Model model, @RequestParam int foodId) {
 		FoodItem foodItem = foodRepository.selectById(foodId);

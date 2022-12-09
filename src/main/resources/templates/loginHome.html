@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<h1>Login Home Page</h1>
+		
+		<div>
+			<h3 th:text="${member.loginId}"></h3>
+			<h3 th:text="${member.name}"></h3>
+			
+			<div>
+<!-- 				<form action="/logout" method="post"> -->
+				<form action="/logout" th:action="@{/logout}" method="post">
+					<button type="submit">로그아웃</button>
+				</form>
+			</div>
+			<div>
+				<button type="button" th:onclick="|location.href='@{/foods}'|">Foods</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

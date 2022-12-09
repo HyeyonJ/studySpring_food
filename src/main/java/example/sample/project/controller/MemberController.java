@@ -54,6 +54,18 @@ public class MemberController {
 		member.setPassword("admin");
 		member.setName("관리자");
 		
+		Member member2 = new Member();
+		member2.setLoginId("user1");
+		member2.setPassword("user1");
+		member2.setName("사용자1");
+		
+		Member member3 = new Member();
+		member3.setLoginId("user2");
+		member3.setPassword("user2");
+		member3.setName("사용자2");
+		
 		memberRepository.insert(member);
+		memberRepository.insert(member2);
+		memberRepository.insert(member3);
 	}
 }

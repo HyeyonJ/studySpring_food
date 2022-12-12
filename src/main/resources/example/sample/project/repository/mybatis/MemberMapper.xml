@@ -6,16 +6,30 @@
 <mapper namespace="example.sample.project.repository.mybatis.MemberMapper">
 	
 	<insert id="insert" parameterType="Member">
+<!-- 		쿼리 작성 가능 -->
+		insert into member(id, login_id, password, name)
+			values( memberPK.nextVal, #{loginId}, #{password}, #{name})
 	</insert>
 	
 	<select id="selectById" resultType="Member">
+		select id, login_id, password, name
+		from member
+		where id = #{id}
+<!-- 		${} 변수 는 #{} : ?, ? 바인딩처리  -->
 	</select>	
 	
 	<select id="selectByLoginId"  resultType="Member">
+		select id, login_id, password, name
+		from member
+		where login_id = #{login_id}
 	</select>
 	
 	<select id="selectAll" resultType="Member">
+		select id, login_id, password, name
+		from member
 	</select>
 	
-	<delete id="deleteAll"></delete>
+	<delete id="deleteAll">
+		delete from member
+	</delete>
 </mapper>

@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import example.sample.project.domain.Member;
-import example.sample.project.repository.MemberRepository;
+//import example.sample.project.repository.ListMemberRepository;
+import example.sample.project.repository.mybatis.MybatisMemberRepository;
 import example.sample.project.validation.MemberValidator;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/members")
 @RequiredArgsConstructor
+@RequestMapping("/members")
 public class MemberController {
 
-	private final MemberRepository memberRepository;
+	private final MybatisMemberRepository memberRepository;
+//	private final ListMemberRepository memberRepository;
 	private final MemberValidator memberValidator;
 	
 	@GetMapping("/new")

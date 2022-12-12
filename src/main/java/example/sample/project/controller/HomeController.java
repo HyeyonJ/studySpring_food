@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import example.sample.project.domain.Member;
-import example.sample.project.repository.MemberRepository;
+import example.sample.project.repository.ListMemberRepository;
+import example.sample.project.repository.mybatis.MybatisMemberRepository;
 import example.sample.project.session.SessionManager;
 import example.sample.project.session.SessionVar;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class HomeController {
 
-	private final MemberRepository memberRepository;
+	private final MybatisMemberRepository memberRepository;
 	private final SessionManager sessionManager;
 
 	@GetMapping("/")

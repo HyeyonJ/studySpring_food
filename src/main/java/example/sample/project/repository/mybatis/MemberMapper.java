@@ -8,7 +8,8 @@ import example.sample.project.domain.Member;
 
 @Mapper
 public interface MemberMapper {
-	public Member insert(Member member);
+//	public Member insert(Member member);
+	public Integer insert(Member member);
 	
 	public Member selectById(int id);
 	

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="example.sample.project.repository.mybatis.MemberMapper">
+	
+	<insert id="insert" parameterType="Member">
+	</insert>
+	
+	<select id="selectById" resultType="Member">
+	</select>	
+	
+	<select id="selectByLoginId"  resultType="Member">
+	</select>
+	
+	<select id="selectAll" resultType="Member">
+	</select>
+	
+	<delete id="deleteAll"></delete>
+</mapper>

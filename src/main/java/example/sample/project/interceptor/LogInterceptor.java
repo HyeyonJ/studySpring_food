@@ -1,4 +1,4 @@
-package example.sample.project.controller.interceptor;
+package example.sample.project.interceptor;
 
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;

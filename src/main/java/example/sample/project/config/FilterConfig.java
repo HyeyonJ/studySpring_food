@@ -20,4 +20,14 @@ public class FilterConfig {
 	
 	}
 	
+	@Bean
+	public FilterRegistrationBean<Filter> loginFilter(){
+		FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<Filter>();
+		filterRegistrationBean.setFilter(new LogFilter());
+		filterRegistrationBean.setOrder(2);	// 로그가 여러개 있을 때 순서
+		filterRegistrationBean.addUrlPatterns("/*");
+		return filterRegistrationBean;
+	
+	}
+	
 }

@@ -1,4 +1,9 @@
+
+
+
 package example.sample.project.controller;
+
+import java.lang.ProcessBuilder.Redirect;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import example.sample.project.domain.Member;
 import example.sample.project.service.LoginService;
@@ -38,8 +44,10 @@ public class LoginController {
 	}
 
 	@PostMapping("/login_cookie")
-	public String doLogin_cookie(@ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpSession session,
-			HttpServletResponse resp) {
+	public String doLogin_cookie(@ModelAttribute LoginForm loginForm, 
+									BindingResult bindingResult,
+//			 						HttpSession session,
+									HttpServletResponse resp) {
 
 		log.info("loginForm {}", loginForm);
 
@@ -59,7 +67,6 @@ public class LoginController {
 			return "login/login";
 		}
 
-// 정상적으로 로그인 처리가 된 경우
 
 // 쿠키를 추가
 		Cookie cookie = new Cookie("loginId", member.getLoginId());
@@ -71,10 +78,13 @@ public class LoginController {
 
 		return "redirect:/";
 	}
-
+	
+	
 	@PostMapping("/login")
-	public String doLogin(@ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletResponse resp,
-			HttpServletRequest req) {
+	public String doLogin(@ModelAttribute LoginForm loginForm, 
+			BindingResult bindingResult, HttpServletResponse resp,
+			HttpServletRequest req,
+			@RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
 
 		log.info("loginForm {}", loginForm);
 
@@ -99,12 +109,52 @@ public class LoginController {
 // 세션을 추가
 // true(default) => 없으면 새로 만듦
 // false => 없어도 새로 안만듦
-		HttpSession session = req.getSession();
+		// 정상적으로 로그인 처리가 된 경우
+				// 세션에 추가
+		HttpSession session = req.getSession(false);
 		session.setAttribute(SessionVar.LOGIN_MEMBER, member);
 		session.setMaxInactiveInterval(540);
-		return "redirect:/";
+		return "redirect:" + redirectURL;
+//		HttpSession session = req.getSession();
+//		session.setAttribute(SessionVar.LOGIN_MEMBER, member);
+//		session.setMaxInactiveInterval(540);
+//		return "redirect:/";
 	}
 
+	@PostMapping("/login_old")
+	public String doLogin_old(@ModelAttribute LoginForm loginForm,
+	BindingResult bindingResult, HttpServletResponse resp,
+	HttpServletRequest req) {
+
+	log.info("loginForm {}", loginForm);
+
+	validateLoginForm(loginForm, bindingResult);
+
+	if (bindingResult.hasErrors()) {
+	return "login/login";
+	}
+
+	Member member = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+
+	log.info("login {}", member);
+
+	if (member == null) {
+	// 계정정보가 없거나 비밀번호가 안맞거나 로그인 실패
+	bindingResult.reject("loginForm", "아이디 or 비밀번호");
+	return "login/login";
+	}
+
+	// 정상적으로 로그인 처리가 된 경우
+
+	// 세션을 추가
+	// true(default) => 없으면 새로 만듦
+	// false => 없어도 새로 안만듦
+	HttpSession session = req.getSession();
+	session.setAttribute(SessionVar.LOGIN_MEMBER, member);
+	session.setMaxInactiveInterval(540);
+	return "redirect:/";
+	}
+	
 	@PostMapping("/login_session")
 	public String doLogin_session(@ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpSession session,
 			HttpServletResponse resp) {

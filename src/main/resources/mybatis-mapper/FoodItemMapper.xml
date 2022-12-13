@@ -6,13 +6,13 @@
 <mapper namespace="example.sample.project.repository.mybatis.FoodItemMapper">
 	
 	<insert id="insert" parameterType="FoodItem">
-		insert into foodItem(id, itemName, content, price, soldOut, options, FoodType, shopCode)
+		insert into foodItem(id, itemName, content, price)
 		values( foodItemPK.nextVal, #{itemName}, #{content}, #{price})
 	</insert>
 	
 	<select id="selectById" resultType="FoodItem">
 		select id, itemName, content, price
-		from FoodItem
+		from foodItem
 		where id = #{id}
 	</select>	
 	

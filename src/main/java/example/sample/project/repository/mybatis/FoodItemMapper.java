@@ -15,8 +15,8 @@ public interface FoodItemMapper {
 	
 	public List<FoodItem> selectAll();
 	
-//	public boolean update(int id, FoodItem foodItem);
-	public void update(int id, FoodItem foodItem);
+	public boolean update(int id, FoodItem foodItem);
+//	public void update(int id, FoodItem foodItem);
 //	public integer update(int id, FoodItem foodItem);
 	
 	public void deleteAll();

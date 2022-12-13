@@ -41,6 +41,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import example.sample.project.domain.FoodItem;
 import example.sample.project.domain.FoodType;
 import example.sample.project.domain.ShopCode;
+import example.sample.project.repository.FoodItemRepository;
 import example.sample.project.repository.mybatis.MybatisFoodItemRepository;
 import example.sample.project.validation.FoodItemValidator;
 import example.sample.project.validation.form.FoodItemNewForm;
@@ -78,6 +79,7 @@ public class FoodController2 {
 		
 		return "foods2/foods"; // 페이지 정보 반환
 	}
+	
 	@PostMapping("/food")
 	public String food2(Model model, @RequestParam int foodId) {
 		FoodItem foodItem = foodRepository.selectById(foodId);
@@ -473,7 +475,7 @@ public class FoodController2 {
 	   return shopCodes;
    }
 	
-	@PostConstruct
+//	@PostConstruct
 	public void insertInit() {
 		FoodItem foodItem1 = new FoodItem("김밥", "돈까스", 3500);
 		foodRepository.insert(foodItem1);

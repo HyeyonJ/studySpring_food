@@ -110,7 +110,12 @@ public class FoodController {
 		FoodItemCond searchCond = new FoodItemCond();
 		
 //		searchCond.setContent("다시");
-		searchCond.setId(3);
+//		searchCond.setId(3);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(2);
+		ids.add(3);
+		searchCond.setIds(ids);
 		List<FoodItem> foodList = foodRepository.selectSearchAll(searchCond);
 		
 		model.addAttribute("foods", foodList);

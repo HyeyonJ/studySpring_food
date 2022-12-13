@@ -33,10 +33,15 @@ public class MybatisFoodItemRepository implements FoodItemRepository{
 
 	@Override
 	public List<FoodItem> selectAll() {
-		List<FoodItem> foodItems = foodItemMapper.selectAll();
-		return foodItems;
+		List<FoodItem> foodItems = null;
+		try {
+			foodItems = foodItemMapper.selectAll();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+			return foodItems;
 	}
-
+	
 	@Override
 	public void deleteAll() {
 		foodItemMapper.deleteAll();

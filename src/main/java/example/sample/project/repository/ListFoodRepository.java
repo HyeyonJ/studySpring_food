@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import example.sample.project.domain.FoodItem;
+import example.sample.project.domain.FoodItemCond;
 import example.sample.project.domain.FoodType;
 
 
@@ -75,5 +76,11 @@ public class ListFoodRepository implements FoodItemRepository {
 	
 	public void deleteAll() {
 		db.clear();
+	}
+
+	@Override
+	public List<FoodItem> selectSearchAll(FoodItemCond searchCond) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

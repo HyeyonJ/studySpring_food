@@ -14,6 +14,7 @@ public class FoodItemCond {
 	private String itemName;
 	private String content;
 	private int price;
+	private List<Integer> ids;
 	
 	private Boolean soldout;
 	private List<String> options;

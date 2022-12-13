@@ -6,23 +6,28 @@
 <mapper namespace="example.sample.project.repository.mybatis.FoodItemMapper">
 	
 	<insert id="insert" parameterType="FoodItem">
-<!-- 		쿼리 작성 가능 -->
-		insert into member(id, itemName, content, price, soldOut, options, FoodType, shopCode)
-			values( memberPK.nextVal, #{itemName}, #{content}, #{price}, #{soldOut}, #{options}, #{FoodType}, #{shopCode})
+		insert into foodItem(id, itemName, content, price, soldOut, options, FoodType, shopCode)
+		values( foodItemPK.nextVal, #{itemName}, #{content}, #{price})
 	</insert>
 	
 	<select id="selectById" resultType="FoodItem">
-		select id, itemName, content, price, soldOut, options, FoodType, shopCode
+		select id, itemName, content, price
 		from FoodItem
 		where id = #{id}
-<!-- 		${} 변수 는 #{} : ?, ? 바인딩처리  -->
 	</select>	
 	
-	
 	<select id="selectAll" resultType="FoodItem">
-		select id, itemName, content, price, soldOut, options, FoodType, shopCod
+		select id, itemName, content, price
 		from foodItem
 	</select>
+	
+	<update id="update">
+		update foodItem
+		SET	  itemName = #{itemName}
+			  content = #{content}
+			  price = #{price}
+		WHERE id = #{id}
+	</update>
 	
 	<delete id="deleteAll">
 		delete from foodItem

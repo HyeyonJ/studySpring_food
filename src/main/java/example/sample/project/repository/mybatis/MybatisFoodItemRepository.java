@@ -40,4 +40,10 @@ public class MybatisFoodItemRepository implements FoodItemRepository{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void update(int id, FoodItem foodItem) {
+		// TODO Auto-generated method stub
+		
+	}
 }

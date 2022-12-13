@@ -187,7 +187,7 @@ public class FoodController {
 //			model.addAttribute("errors", errors);	// 담고
 //			return "foods/new";
 //		}
-			
+		
 		foodRepository.insert(foodItem);
 		
 		rAttr.addAttribute("foodId", foodItem.getId());
@@ -463,7 +463,7 @@ public class FoodController {
 	   return shopCodes;
    }
 	
-	@PostConstruct
+//	@PostConstruct
 	public void insertInit() {
 		FoodItem foodItem1 = new FoodItem("김밥", "돈까스", 3500);
 		foodRepository.insert(foodItem1);

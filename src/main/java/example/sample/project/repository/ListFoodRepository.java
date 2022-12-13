@@ -10,7 +10,7 @@ import example.sample.project.domain.FoodType;
 
 
 @Repository
-public class ListFoodRepository {
+public class ListFoodRepository implements FoodItemRepository {
 	private static List<FoodItem>db = new ArrayList<>();
 //	private List<FoodItem>db;
 	//key, value
@@ -46,7 +46,7 @@ public class ListFoodRepository {
 		return db;
 	}
 	
-	public boolean update(int id, FoodItem foodItem) {
+	public void update(int id, FoodItem foodItem) {
 		
 		boolean result = false;
 		
@@ -70,7 +70,6 @@ public class ListFoodRepository {
 			result = false;
 		}
 		
-		return result;
 	}
 	
 	public void deleteAll() {

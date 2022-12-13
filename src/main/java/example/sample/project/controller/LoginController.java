@@ -109,7 +109,7 @@ public class LoginController {
 // false => 없어도 새로 안만듦
 		// 정상적으로 로그인 처리가 된 경우
 				// 세션에 추가
-		HttpSession session = req.getSession(false);
+		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_MEMBER, member);
 		session.setMaxInactiveInterval(540);
 		return "redirect:" + redirectURL;

@@ -40,7 +40,7 @@ import example.sample.project.domain.FoodItem;
 import example.sample.project.domain.FoodType;
 import example.sample.project.domain.Member;
 import example.sample.project.domain.ShopCode;
-import example.sample.project.repository.FoodRepository;
+import example.sample.project.repository.FoodItemRepository;
 import example.sample.project.session.SessionVar;
 import example.sample.project.validation.FoodItemValidator;
 import jakarta.annotation.PostConstruct;
@@ -56,7 +56,8 @@ import lombok.extern.slf4j.Slf4j;
 public class FoodController { 
 //	private final FoodRepository foodRepository = FoodRepository.getInstance();
 	
-	private final FoodRepository foodRepository;
+	private final FoodItemRepository fooditemRepository;
+//	private final FoodRepository foodRepository;
 	private final FoodItemValidator foodItemValidator;
 	
 	

@@ -12,7 +12,7 @@ public interface FoodItemRepository {
 	
 	public List<FoodItem> selectAll();
 	
-	public void update(int id, FoodItem foodItem);
+	public boolean update(int id, FoodItem foodItem);
 	
 	public void deleteAll();
 }

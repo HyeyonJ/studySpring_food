@@ -9,7 +9,7 @@ import example.sample.project.repository.FoodItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+@Slf4j	// 혹시나 로그를 찍을 수도 있어서 만들어둠
 @RequiredArgsConstructor
 @Repository
 public class MybatisFoodItemRepository implements FoodItemRepository{
@@ -19,31 +19,37 @@ public class MybatisFoodItemRepository implements FoodItemRepository{
 
 	@Override
 	public FoodItem insert(FoodItem foodItem) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer result = foodItemMapper.insert(foodItem);
+		log.info("FoodItem insert result {}", result);
+		return foodItem;
 	}
 
 	@Override
 	public FoodItem selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		FoodItem foodItem = foodItemMapper.selectById(id);
+		return foodItem;
 	}
 
 	@Override
 	public List<FoodItem> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<FoodItem> foodItems = foodItemMapper.selectAll();
+		return foodItems;
 	}
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
+		foodItemMapper.deleteAll();
 	}
-
+	
 	@Override
-	public void update(int id, FoodItem foodItem) {
-		// TODO Auto-generated method stub
-		
+	public boolean update(int id, FoodItem foodItem) {
+		boolean result = false;
+		try {
+			foodItemMapper.update(id, foodItem);
+			result = true;
+		} catch (Exception e) {
+			log.error("foodItemMapper update error {} {}", id, foodItem);
+		}
+		return result;
 	}
 }

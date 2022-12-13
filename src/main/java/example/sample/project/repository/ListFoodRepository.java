@@ -46,7 +46,7 @@ public class ListFoodRepository implements FoodItemRepository {
 		return db;
 	}
 	
-	public void update(int id, FoodItem foodItem) {
+	public boolean update(int id, FoodItem foodItem) {
 		
 		boolean result = false;
 		
@@ -69,6 +69,7 @@ public class ListFoodRepository implements FoodItemRepository {
 		} catch (Exception e) {
 			result = false;
 		}
+		return result;
 		
 	}
 	

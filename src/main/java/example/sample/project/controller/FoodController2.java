@@ -41,7 +41,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import example.sample.project.domain.FoodItem;
 import example.sample.project.domain.FoodType;
 import example.sample.project.domain.ShopCode;
-import example.sample.project.repository.FoodRepository;
+import example.sample.project.repository.mybatis.MybatisFoodItemRepository;
 import example.sample.project.validation.FoodItemValidator;
 import example.sample.project.validation.form.FoodItemNewForm;
 import example.sample.project.validation.form.NewCheck;
@@ -56,7 +56,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FoodController2 { 
 //	private final FoodRepository foodRepository = FoodRepository.getInstance();
 	
-	private final FoodRepository foodRepository;
+	private final MybatisFoodItemRepository foodRepository;
 	
 //	private final FoodItemValidator foodItemValidator;
 //	

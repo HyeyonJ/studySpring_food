@@ -12,7 +12,9 @@ public interface FoodItemMapper {
 	
 	public List<FoodItem> selectAll();
 	
-	public List<FoodItem> update();
+//	public boolean update(int id, FoodItem foodItem);
+	public void update(int id, FoodItem foodItem);
+//	public integer update(int id, FoodItem foodItem);
 	
 	public void deleteAll();
 	

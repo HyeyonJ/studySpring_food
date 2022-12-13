@@ -10,7 +10,7 @@ import example.sample.project.domain.FoodType;
 
 
 @Repository
-public class FoodRepository {
+public class ListFoodRepository {
 	private static List<FoodItem>db = new ArrayList<>();
 //	private List<FoodItem>db;
 	//key, value

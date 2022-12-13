@@ -25,14 +25,14 @@ public class FoodItem {
 	@Range(min=1, max=10000)
 	private int price;
 	
-	public FoodItem() {
-		// TODO Auto-generated constructor stub
-	}
-
 	private Boolean soldout;
 	private List<String> options;
 	private FoodType foodType;
 	private String shopCode;
+	
+	public FoodItem() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public FoodItem(String itemName, String content, int price) {
 		super();

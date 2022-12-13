@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="example.sample.project.repository.mybatis.FoodItemMapper">
+	
+	<insert id="insert" parameterType="FoodItem">
+<!-- 		쿼리 작성 가능 -->
+		insert into member(id, itemName, content, price, soldOut, options, FoodType, shopCode)
+			values( memberPK.nextVal, #{itemName}, #{content}, #{price}, #{soldOut}, #{options}, #{FoodType}, #{shopCode})
+	</insert>
+	
+	<select id="selectById" resultType="FoodItem">
+		select id, itemName, content, price, soldOut, options, FoodType, shopCode
+		from FoodItem
+		where id = #{id}
+<!-- 		${} 변수 는 #{} : ?, ? 바인딩처리  -->
+	</select>	
+	
+	
+	<select id="selectAll" resultType="FoodItem">
+		select id, itemName, content, price, soldOut, options, FoodType, shopCod
+		from foodItem
+	</select>
+	
+	<delete id="deleteAll">
+		delete from foodItem
+	</delete>
+</mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import example.sample.project.domain.FoodItem;
+import example.sample.project.domain.FoodItemCond;
 import example.sample.project.repository.FoodItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,5 +52,11 @@ public class MybatisFoodItemRepository implements FoodItemRepository{
 			log.error("foodItemMapper update error {} {}", id, foodItem);
 		}
 		return result;
+	}
+
+	@Override
+	public List<FoodItem> selectSearchAll(FoodItemCond searchCond) {
+		List<FoodItem> foods = foodItemMapper.selectSearchAll(searchCond);
+		return foods;
 	}
 }

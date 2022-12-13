@@ -6,26 +6,85 @@
 <mapper namespace="example.sample.project.repository.mybatis.FoodItemMapper">
 	
 	<insert id="insert" parameterType="FoodItem">
+		<selectKey keyProperty="id" resultType="java.lang.Integer" order="BEFORE">
+			SELECT foodItemPK.nextVal as id from dual
+		</selectKey>
 		insert into foodItem(id, itemName, content, price)
-		values( foodItemPK.nextVal, #{itemName}, #{content}, #{price})
+		values( #{id}, #{itemName}, #{content}, #{price})
 	</insert>
 	
 	<select id="selectById" resultType="FoodItem">
 		select id, itemName, content, price
 		from foodItem
 		where id = #{id}
+		ORDER BY id
 	</select>	
 	
 	<select id="selectAll" resultType="FoodItem">
 		select id, itemName, content, price
 		from foodItem
+		ORDER BY id
 	</select>
+	
+<!-- 	<select id="selectSearchAll" resultType="FoodItem"> -->
+<!-- 		select id, itemName, content, price -->
+<!-- 		from foodItem -->
+<!-- 		<where></where> -->
+<!-- 		WHERE 1=1 -->
+<!-- 		<if test="id != null"> -->
+<!-- 		And	id = #{id} -->
+<!-- 		</if> -->
+<!-- 		<if test="itemName != null"> -->
+<!-- 		And content like #{itemName} -->
+<!-- 		</if> -->
+<!-- 		<if test="content !=null"> -->
+<!-- 		And content like #{content} -->
+<!-- 		</if> -->
+<!-- 		ORDER BY id -->
+<!-- 	</select> -->
+	
+	<select id="selectSearchAll" resultType="FoodItem">
+		select id, itemName, content, price
+		from foodItem
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+			<if test="itemName != null">
+				And content like #{itemName}
+			</if>
+			<if test="content !=null">
+				And content like '%'||#{content}||'%'
+			</if>
+			<if test="price != null or price &lt; 10000">
+				And price >= #{price}
+			</if>
+		</where>
+		ORDER BY id
+	</select>
+
+<!-- 	<select id="selectSearchAll" resultType="FoodItem"> -->
+<!-- 		select id, itemName, content, price -->
+<!-- 		from foodItem -->
+<!-- 		<choose> -->
+<!-- 			<when test="id != null"> -->
+<!-- 				id = #{id} -->
+<!-- 			</when> -->
+<!-- 			<when test="itemName != null"> -->
+<!-- 				And content like #{itemName} -->
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 				And content like '%'||#{content}||'%' -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
+<!-- 		ORDER BY id -->
+<!-- 	</select> -->
 	
 	<update id="update">
 		update foodItem
-		SET	  itemName = #{itemName}
-			  content = #{content}
-			  price = #{price}
+		SET	  itemName = #{updateItem.itemName},
+			  content = #{updateItem.content},
+			  price = #{updateItem.price}
 		WHERE id = #{id}
 	</update>
 	

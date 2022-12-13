@@ -11,10 +11,10 @@ import example.sample.project.interceptor.LoginInterceptor;
 public class InterceptorConfig implements WebMvcConfigurer {
 
 	public void addInterceptors(InterceptorRegistry registry) {
-		// log
-		registry.addInterceptor(new LogInterceptor()).order(1).addPathPatterns("/**").excludePathPatterns("/css/**", "/js/**");
-		// login
-		registry.addInterceptor(new LoginInterceptor()).order(2).addPathPatterns("/**").excludePathPatterns("/", "/login", "/logout", "/members/new");
+//		// log
+//		registry.addInterceptor(new LogInterceptor()).order(1).addPathPatterns("/**").excludePathPatterns("/css/**", "/js/**");
+//		// login
+//		registry.addInterceptor(new LoginInterceptor()).order(2).addPathPatterns("/**").excludePathPatterns("/", "/login", "/logout", "/members/new");
 	}
 	
 }

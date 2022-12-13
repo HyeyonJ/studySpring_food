@@ -37,6 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 //import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import example.sample.project.domain.FoodItem;
+import example.sample.project.domain.FoodItemCond;
 import example.sample.project.domain.FoodType;
 import example.sample.project.domain.Member;
 import example.sample.project.domain.ShopCode;
@@ -72,6 +73,7 @@ public class FoodController {
 	@GetMapping
 	// 전체 정보를 넘기는 것
 	public String foods(Model model, HttpServletRequest req) {
+
 		// 로그인 했는지? 했으면 진행
 		// 안했으면 "/ " redirect
 		
@@ -99,6 +101,22 @@ public class FoodController {
 		}
 		
 		return "foods/foods"; // 페이지 정보 반환
+	}
+	
+	@GetMapping("/searchAll")
+	// 전체 정보를 넘기는 것
+	public String foodsSearchAll(Model model, HttpServletRequest req) {
+		
+		FoodItemCond searchCond = new FoodItemCond();
+		
+//		searchCond.setContent("다시");
+		searchCond.setId(3);
+		List<FoodItem> foodList = foodRepository.selectSearchAll(searchCond);
+		
+		model.addAttribute("foods", foodList);
+		
+		return "foods/foods"; // 페이지 정보 반환
+
 	}
 	
 	@PostMapping("/food")

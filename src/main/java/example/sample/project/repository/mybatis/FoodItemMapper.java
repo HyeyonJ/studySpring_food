@@ -3,8 +3,10 @@ package example.sample.project.repository.mybatis;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import example.sample.project.domain.FoodItem;
+import example.sample.project.domain.FoodItemCond;
 
 @Mapper
 public interface FoodItemMapper {
@@ -15,7 +17,9 @@ public interface FoodItemMapper {
 	
 	public List<FoodItem> selectAll();
 	
-	public boolean update(int id, FoodItem foodItem);
+	public List<FoodItem> selectSearchAll(FoodItemCond searchCond);
+	
+	public boolean update(@Param("id") int id, @Param("updateItem") FoodItem foodItem);
 //	public void update(int id, FoodItem foodItem);
 //	public integer update(int id, FoodItem foodItem);
 	

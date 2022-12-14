@@ -37,9 +37,9 @@ public class FoodItemValidator implements Validator {
 		}
 		
 	
-		if(foodItem.getSoldout()) {
-			errors.reject("failureMsg", null);
-		}
+//		if(foodItem.getSoldout()) {
+//			errors.reject("failureMsg", null);
+//		}
 			
 	}
 	

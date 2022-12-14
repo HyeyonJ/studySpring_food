@@ -13,6 +13,8 @@ public interface FoodItemMapper {
 
 	public Integer insert(FoodItem foodItem);
 	
+	public Integer insertFoodItemOptions(@Param("id") int id, @Param("options") String options);
+	
 	public FoodItem selectById(int id);
 	
 	public List<FoodItem> selectAll();

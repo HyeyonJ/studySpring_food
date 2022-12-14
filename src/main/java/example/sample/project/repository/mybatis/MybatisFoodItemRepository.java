@@ -22,6 +22,11 @@ public class MybatisFoodItemRepository implements FoodItemRepository{
 	public FoodItem insert(FoodItem foodItem) {
 		Integer result = foodItemMapper.insert(foodItem);
 		log.info("FoodItem insert result {}", result);
+		
+		for(String options : foodItem.getOptions()) {
+			foodItemMapper.insertFoodItemOptions(foodItem.getId(), options);
+		}
+		
 		return foodItem;
 	}
 

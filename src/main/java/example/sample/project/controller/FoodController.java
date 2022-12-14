@@ -168,48 +168,12 @@ public class FoodController {
 		log.info(bindingResult.getObjectName());
 		log.info("{}",bindingResult.getTarget());
 		
-		foodItemValidator.validate(foodItem, bindingResult);
 		
-//		foodRepository.insert(foodItem);
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required.foodItem.itemName");
-		
-		
-		if(!StringUtils.hasText(foodItem.getItemName())) {
-												//objectName				실패한 값								
-//			bindingResult.addError(new FieldError("foodItem", "itemName", foodItem.getItemName(),false, new String[] {"required.foodItem.itemName"}, null,"아이템 이름은 필수입력"));
-			bindingResult.rejectValue("itemName", "required.foodItem.itemName", "default message()");
-		}
-		
-		if(!StringUtils.hasText(foodItem.getItemName())) {
-												// 객체명 		필드 			메세지
-//			bindingResult.addError(new FieldError("foodItem", "content",foodItem.getContent() ,false, new String[] {"required.foodItem.itemName"}, null, "컨텐츠는 필수입력"));
-			bindingResult.rejectValue("content", "required.foodItem.content", "default message()");
-		}
-		
-		if(foodItem.getPrice() > 10000) {
-//			bindingResult.addError(new FieldError("foodItem", "price", foodItem.getPrice(), false, new String[] {"max.foodItem.price"}, new Object[] {1, 10000}, "너무 비싸다 ~만원까지 상품만취급"));
-			bindingResult.rejectValue("price","max.foodItem.price", new Object[] {1, 10000, foodItem.getPrice()} , "default message()" );
-		}
-		
-	
-		if(foodItem.getSoldout()) {
-			bindingResult.reject("failureMsg", null);
-			// global메세지 처리
-//			bindingResult.addError(new ObjectError("foodItem", new String[] {"failureMsg"}, null, "DefaultMessage"));
-//			bindingResult.addError(new ObjectError("foodItem", "에러 발생"));
-//			bindingResult.addError(new ObjectError("foodItem", "아차 오타!"));
-		}
 		
 		if(bindingResult.hasErrors()) {
 			log.info("binginResult={}", bindingResult);
 			return "foods/new";
 		}
-		
-//		if(!errors.isEmpty()) {
-//			model.addAttribute("errors", errors);	// 담고
-//			return "foods/new";
-//		}
 		
 		foodRepository.insert(foodItem);
 		

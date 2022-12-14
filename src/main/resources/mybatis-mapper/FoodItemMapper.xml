@@ -9,19 +9,24 @@
 		<selectKey keyProperty="id" resultType="java.lang.Integer" order="BEFORE">
 			SELECT foodItemPK.nextVal as id from dual
 		</selectKey>
-		insert into foodItem(id, itemName, content, price)
-		values( #{id}, #{itemName}, #{content}, #{price})
+		insert into foodItem(id, itemName, content, price, soldout, foodType, shopCode)
+		values( #{id}, #{itemName}, #{content}, #{price}, #{soldout}, #{foodType}, #{shopCode})
+	</insert>
+	
+	<insert id="insertFoodItemOptions">
+		insert into foodItemOptions (foodId, options)
+				values (#{id}, #{options})
 	</insert>
 	
 	<select id="selectById" resultType="FoodItem">
-		select id, itemName, content, price
+		select id, itemName, content, price, soldout, foodType, shopCode
 		from foodItem
 		where id = #{id}
 		ORDER BY id
 	</select>	
 	
 	<select id="selectAll" resultType="FoodItem">
-		select id, itemName, content, price
+		select id, itemName, content, price , soldout, foodType, shopCode
 		from foodItem
 		ORDER BY id
 	</select>
@@ -44,7 +49,7 @@
 <!-- 	</select> -->
 	
 	<select id="selectSearchAll" resultType="FoodItem">
-		select id, itemName, content, price
+		select id, itemName, content, price, soldout, foodType, shopCode
 		from foodItem
 		<where>
 			Where id IN
@@ -62,8 +67,12 @@
 			<if test="content !=null">
 				And content like '%'||#{content}||'%'
 			</if>
-			<if test="price != null or price &lt; 10000">
-				And price >= #{price}
+<!-- 			<if test="price != null or price &lt; 10000"> -->
+			<if test="price != null and price &lt; 10000">
+				<![CDATA[
+				And price &lt;= #{price}
+				]]>
+<!-- 				And price &lt;= #{price} -->
 			</if>
 		</where>
 		ORDER BY id
@@ -90,7 +99,10 @@
 		update foodItem
 		SET	  itemName = #{updateItem.itemName},
 			  content = #{updateItem.content},
-			  price = #{updateItem.price}
+			  price = #{updateItem.price},
+			  soldout = #{updateItem.soldout},
+			  foodType = #{updateItem.foodType},
+			  shopCode = #{updateItem.shopCode}
 		WHERE id = #{id}
 	</update>
 	

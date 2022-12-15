@@ -16,6 +16,10 @@ public interface FoodItemMapper {
 	public Integer insertFoodItemOptions(@Param("id") int id, @Param("options") String options);
 	
 	public FoodItem selectById(int id);
+
+	public FoodItem selectByIdWithOptions(@Param("id") int id);
+	
+	public List<String> selectFoodItemOptions(int id);
 	
 	public List<FoodItem> selectAll();
 	
@@ -24,6 +28,8 @@ public interface FoodItemMapper {
 	public boolean update(@Param("id") int id, @Param("updateItem") FoodItem foodItem);
 //	public void update(int id, FoodItem foodItem);
 //	public integer update(int id, FoodItem foodItem);
+	
+	public void deleteFoodItemOptions(int id);
 	
 	public void deleteAll();
 	

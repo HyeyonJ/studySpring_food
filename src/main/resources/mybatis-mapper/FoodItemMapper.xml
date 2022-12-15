@@ -5,6 +5,17 @@
         
 <mapper namespace="example.sample.project.repository.mybatis.FoodItemMapper">
 	
+	<resultMap type="FoodItem" id="foodItemMap">
+		<id property="id" column="id"></id>
+		<result property="itemName" column="itemName"></result>
+		<result property="content" column="content"></result>
+		<result property="price" column="price"></result>
+		<result property="soldout" column="soldout"></result>
+		<result property="foodType" column="foodType"></result>
+		<collection property="options" column="id" select="selectFoodItemOptions">
+		</collection>
+	</resultMap>
+	
 	<insert id="insert" parameterType="FoodItem">
 		<selectKey keyProperty="id" resultType="java.lang.Integer" order="BEFORE">
 			SELECT foodItemPK.nextVal as id from dual
@@ -17,6 +28,17 @@
 		insert into foodItemOptions (foodId, options)
 				values (#{id}, #{options})
 	</insert>
+	
+	<select id="selectFoodItemOptions" resultType="String">
+		select options from foodItemOptions
+		WHERE foodId = #{id}
+	</select>
+	
+	<select id="selectByIdWithOptions" resultMap="foodItemMap">
+		select id, itemName, content, price, soldout, foodType, shopCode
+		from foodItem
+		where id = #{id}
+	</select>
 	
 	<select id="selectById" resultType="FoodItem">
 		select id, itemName, content, price, soldout, foodType, shopCode
@@ -106,7 +128,24 @@
 		WHERE id = #{id}
 	</update>
 	
+<!-- 	<update id="updateFoodItemOpi"> -->
+<!-- 		update foodItem -->
+<!-- 		SET	  itemName = #{updateItem.itemName}, -->
+<!-- 			  content = #{updateItem.content}, -->
+<!-- 			  price = #{updateItem.price}, -->
+<!-- 			  soldout = #{updateItem.soldout}, -->
+<!-- 			  foodType = #{updateItem.foodType}, -->
+<!-- 			  shopCode = #{updateItem.shopCode} -->
+<!-- 		WHERE id = #{id} -->
+<!-- 	</update> -->
+	
 	<delete id="deleteAll">
 		delete from foodItem
 	</delete>
+	
+	<delete id="deleteFoodItemOptions">
+		delete from foodItemOptions
+		WHERE foodId = #{id}
+	</delete>
+	
 </mapper>
